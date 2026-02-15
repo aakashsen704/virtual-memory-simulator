@@ -126,7 +126,7 @@ The web interface provides:
 - **Real-time Animation**: Watch pages load and get replaced
 - **Live Statistics**: Page faults, hit rates updated in real-time
 
-![Interactive Demo Screenshot](interactive_demo_screenshot.png)
+![Interactive Demo Screenshot](interface.png)
 
 ## 📈 Performance Results
 
