@@ -283,8 +283,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Your Name**
-- GitHub: [@YOUR_USERNAME](https://github.com/YOUR_USERNAME)
-- Email: your.email@example.com
+- GitHub: [@Aakash Sen](https://github.com/aakashsen704)
+- Email: senaakash237@gmail.com
 
 ## 🙏 Acknowledgments
 
@@ -296,7 +296,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For questions, suggestions, or issues:
 - Open an issue on GitHub
-- Email: your.email@example.com
+- Email: senaaakash237@gmail.comn
 
 ---
 
