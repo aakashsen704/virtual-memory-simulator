@@ -257,7 +257,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Virtual Memory Simulator</h1>
+            <h1>🖥️ Virtual Memory Simulator</h1>
             <p>Interactive Page Replacement Algorithm Visualization</p>
         </div>
         
@@ -297,7 +297,7 @@
                 </select>
             </div>
             
-            <button class="btn-simulate" onclick="runSimulation()">Run Simulation</button>
+            <button class="btn-simulate" onclick="runSimulation()">🚀 Run Simulation</button>
         </div>
         
         <div class="visualization">
@@ -340,12 +340,15 @@
                 this.accesses++;
                 const time = this.accesses;
                 
+                // Check if page in memory
                 const pageIndex = this.frames.indexOf(pageNum);
                 
                 if (pageIndex !== -1) {
+                    // Page hit
                     this.updateAccessInfo(pageNum, time);
                     return { fault: false, victim: null };
                 } else {
+                    // Page fault
                     this.pageFaults++;
                     let victim = null;
                     
@@ -436,6 +439,7 @@
             }
         }
         
+        // Generate reference string
         function generateReferenceString(length, numPages, pattern) {
             const refs = [];
             
@@ -474,13 +478,15 @@
             return refs;
         }
         
+        // Algorithm descriptions
         const algorithmInfo = {
             'FIFO': 'First-In-First-Out: Replaces the oldest page in memory. Simple but may evict frequently used pages.',
-            'LRU': 'Least Recently Used: Replaces the page that has not been used for the longest time. Good performance but higher overhead.',
+            'LRU': 'Least Recently Used: Replaces the page that hasnt been used for the longest time. Good performance but higher overhead.',
             'LFU': 'Least Frequently Used: Replaces the page with the lowest access count. May retain old pages too long.',
             'Clock': 'Second Chance: Circular FIFO with reference bits. Good balance between performance and simplicity.'
         };
         
+        // Run simulation
         async function runSimulation() {
             const algorithm = document.getElementById('algorithm').value;
             const numFrames = parseInt(document.getElementById('frames').value);
@@ -488,33 +494,44 @@
             const refLength = parseInt(document.getElementById('refLength').value);
             const pattern = document.getElementById('pattern').value;
             
+            // Show algorithm info
             const infoDiv = document.getElementById('algorithmInfo');
-            infoDiv.innerHTML = '<h3>' + algorithm + ' Algorithm</h3><p>' + algorithmInfo[algorithm] + '</p>';
+            infoDiv.innerHTML = `<h3>${algorithm} Algorithm</h3><p>${algorithmInfo[algorithm]}</p>`;
             infoDiv.style.display = 'block';
             
+            // Generate reference string
             const referenceString = generateReferenceString(refLength, numPages, pattern);
             
+            // Display reference string
             displayReferenceString(referenceString);
             
+            // Create simulator
             const sim = new PageReplacementSimulator(algorithm, numFrames, numPages);
             
+            // Initialize memory grid
             updateMemoryGrid([], numFrames);
             
+            // Show progress
             document.getElementById('progress').style.display = 'block';
             
+            // Run simulation with animation
             for (let i = 0; i < referenceString.length; i++) {
                 await new Promise(resolve => setTimeout(resolve, 100));
                 
                 const page = referenceString[i];
                 const result = sim.accessPage(page);
                 
+                // Update progress
                 const progress = ((i + 1) / referenceString.length * 100);
                 document.getElementById('progressFill').style.width = progress + '%';
                 
+                // Highlight current page
                 highlightCurrentPage(i);
                 
+                // Update memory grid
                 updateMemoryGrid(sim.frames, numFrames, result.fault);
                 
+                // Update stats
                 updateStats(sim.getStats());
             }
         }
@@ -522,7 +539,7 @@
         function displayReferenceString(refs) {
             const div = document.getElementById('pages');
             div.innerHTML = refs.map((p, i) => 
-                '<div class="page unvisited" id="page-' + i + '">' + p + '</div>'
+                `<div class="page unvisited" id="page-${i}">${p}</div>`
             ).join('');
             document.getElementById('referenceString').style.display = 'block';
         }
@@ -539,7 +556,7 @@
             });
         }
         
-        function updateMemoryGrid(frames, numFrames, isFault) {
+        function updateMemoryGrid(frames, numFrames, isFault = false) {
             const grid = document.getElementById('memoryGrid');
             let html = '';
             
@@ -549,10 +566,10 @@
                     (isFault ? 'frame occupied fault' : 'frame occupied') : 
                     'frame empty';
                 const content = page !== undefined ? 
-                    '<div>Page ' + page + '</div><div class="frame-label">Frame ' + i + '</div>' : 
-                    '<div>Empty</div><div class="frame-label">Frame ' + i + '</div>';
+                    `<div>Page ${page}</div><div class="frame-label">Frame ${i}</div>` : 
+                    `<div>Empty</div><div class="frame-label">Frame ${i}</div>`;
                 
-                html += '<div class="' + className + '">' + content + '</div>';
+                html += `<div class="${className}">${content}</div>`;
             }
             
             grid.innerHTML = html;
@@ -560,25 +577,27 @@
         
         function updateStats(stats) {
             const statsDiv = document.getElementById('stats');
-            statsDiv.innerHTML = 
-                '<div class="stat-card">' +
-                    '<div class="stat-label">Total Accesses</div>' +
-                    '<div class="stat-value">' + stats.accesses + '</div>' +
-                '</div>' +
-                '<div class="stat-card">' +
-                    '<div class="stat-label">Page Faults</div>' +
-                    '<div class="stat-value">' + stats.faults + '</div>' +
-                '</div>' +
-                '<div class="stat-card">' +
-                    '<div class="stat-label">Page Fault Rate</div>' +
-                    '<div class="stat-value">' + stats.faultRate + '%</div>' +
-                '</div>' +
-                '<div class="stat-card">' +
-                    '<div class="stat-label">Hit Rate</div>' +
-                    '<div class="stat-value">' + stats.hitRate + '%</div>' +
-                '</div>';
+            statsDiv.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-label">Total Accesses</div>
+                    <div class="stat-value">${stats.accesses}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Page Faults</div>
+                    <div class="stat-value">${stats.faults}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Page Fault Rate</div>
+                    <div class="stat-value">${stats.faultRate}%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Hit Rate</div>
+                    <div class="stat-value">${stats.hitRate}%</div>
+                </div>
+            `;
         }
         
+        // Initialize on load
         window.onload = () => {
             updateMemoryGrid([], 5);
         };

@@ -488,7 +488,7 @@ def generate_web_interface():
         // Algorithm descriptions
         const algorithmInfo = {
             'FIFO': 'First-In-First-Out: Replaces the oldest page in memory. Simple but may evict frequently used pages.',
-            'LRU': 'Least Recently Used: Replaces the page that hasn\'t been used for the longest time. Good performance but higher overhead.',
+            'LRU': 'Least Recently Used: Replaces the page that hasnt been used for the longest time. Good performance but higher overhead.',
             'LFU': 'Least Frequently Used: Replaces the page with the lowest access count. May retain old pages too long.',
             'Clock': 'Second Chance: Circular FIFO with reference bits. Good balance between performance and simplicity.'
         };
